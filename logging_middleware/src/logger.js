@@ -11,6 +11,21 @@ function assertAllowedValue(label, value, allowedValues) {
   }
 }
 
+function buildLogMessage(message, context) {
+  if (!context || Object.keys(context).length === 0) {
+    return message;
+  }
+
+  const orderedContext = Object.keys(context)
+    .sort()
+    .reduce((accumulator, key) => {
+      accumulator[key] = context[key];
+      return accumulator;
+    }, {});
+
+  return `${message} | meta=${JSON.stringify(orderedContext)}`;
+}
+
 function ensureDirectoryExists(filePath) {
   const directory = path.dirname(filePath);
   fs.mkdirSync(directory, { recursive: true });
@@ -45,9 +60,7 @@ function createLogger(options = {}) {
         stack,
         level,
         package: packageName,
-        message: context && Object.keys(context).length > 0
-          ? `${message} | context=${JSON.stringify(context)}`
-          : message
+        message: buildLogMessage(message, context)
       };
 
       try {
@@ -81,4 +94,3 @@ module.exports = {
   createEnvironmentLogger,
   createLogger
 };
-

@@ -1,0 +1,11 @@
+{
+  "name": "vehicle-scheduling-service",
+  "version": "1.0.0",
+  "description": "Backend service that schedules vehicle maintenance tasks within mechanic-hour limits.",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node -e \"require('./src/domain/knapsack'); process.exit(0);\""
+  }
+}

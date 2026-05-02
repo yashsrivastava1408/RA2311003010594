@@ -40,7 +40,16 @@ class TokenManager {
     }
 
     this.cachedToken = accessToken;
-    this.expiresAt = Number.isFinite(expiresIn) ? now + expiresIn * 1000 : now + 5 * 60 * 1000;
+
+    if (Number.isFinite(expiresIn)) {
+      if (expiresIn > 1_000_000_000) {
+        this.expiresAt = expiresIn * 1000;
+      } else {
+        this.expiresAt = now + expiresIn * 1000;
+      }
+    } else {
+      this.expiresAt = now + 5 * 60 * 1000;
+    }
 
     return this.cachedToken;
   }
@@ -49,4 +58,3 @@ class TokenManager {
 module.exports = {
   TokenManager
 };
-
