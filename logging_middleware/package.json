@@ -1,0 +1,11 @@
+{
+  "name": "logging-middleware",
+  "version": "1.0.0",
+  "description": "Reusable remote logging package for backend services.",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "node -e \"require('./index').createLogger(); process.exit(0);\""
+  }
+}
+
